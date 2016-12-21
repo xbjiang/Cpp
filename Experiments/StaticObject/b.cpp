@@ -10,7 +10,11 @@ class A
 {
 public:
 	const static int a = 1; // why this has to be const?
+	static int b;
 };
+int A::b = 2; // when this variable is initialized?
+
+
 int main()
 {
 	cout << a << endl;
@@ -19,4 +23,5 @@ int main()
 	cout << "main() c = " << r_c << endl;
 	test();
 	cout << "A::a " << A::a << endl;
+	cout << "A::b " << A::b << endl;
 }
