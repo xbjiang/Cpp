@@ -9,11 +9,11 @@ extern int a; // global variable has to be declared with extern again here
 class A
 {
 public:
-	const static int a = 1; // why this has to be const? in-class initialization for static members must be static const in.
+	const static int a = 1; // why this has to be const? in-class initialization for static members must be static const int.
 	static int b;
     int c = 1;
 };
-int A::b = 2; // when this variable is initialized? first time you use it.
+int A::b = 2; // when this variable is initialized? first time you encounter it. and it's decided in compile time
 
 int main()
 {

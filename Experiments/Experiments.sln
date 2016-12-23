@@ -7,6 +7,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Experiments", "Experiments\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StaticObject", "StaticObject\StaticObject.vcxproj", "{B42B377F-C459-4E30-9569-0DA9D7F3D5D8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Constructors", "Constructors\Constructors.vcxproj", "{175569E9-B624-41F4-A921-213BFAEDE5B6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Floats", "Floats\Floats.vcxproj", "{4E10C0DB-9605-4057-BB39-4D727E0F43A4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +25,14 @@ Global
 		{B42B377F-C459-4E30-9569-0DA9D7F3D5D8}.Debug|Win32.Build.0 = Debug|Win32
 		{B42B377F-C459-4E30-9569-0DA9D7F3D5D8}.Release|Win32.ActiveCfg = Release|Win32
 		{B42B377F-C459-4E30-9569-0DA9D7F3D5D8}.Release|Win32.Build.0 = Release|Win32
+		{175569E9-B624-41F4-A921-213BFAEDE5B6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{175569E9-B624-41F4-A921-213BFAEDE5B6}.Debug|Win32.Build.0 = Debug|Win32
+		{175569E9-B624-41F4-A921-213BFAEDE5B6}.Release|Win32.ActiveCfg = Release|Win32
+		{175569E9-B624-41F4-A921-213BFAEDE5B6}.Release|Win32.Build.0 = Release|Win32
+		{4E10C0DB-9605-4057-BB39-4D727E0F43A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4E10C0DB-9605-4057-BB39-4D727E0F43A4}.Debug|Win32.Build.0 = Debug|Win32
+		{4E10C0DB-9605-4057-BB39-4D727E0F43A4}.Release|Win32.ActiveCfg = Release|Win32
+		{4E10C0DB-9605-4057-BB39-4D727E0F43A4}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
