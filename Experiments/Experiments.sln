@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Floats", "Floats\Floats.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZeroInitialization", "ZeroInitialization\ZeroInitialization.vcxproj", "{19C203A4-9DD4-4053-A630-F31A12BE2AA9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Uncopyable", "Uncopyable\Uncopyable.vcxproj", "{E59849F7-9F44-4C52-B254-05EE5FA10873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,10 @@ Global
 		{19C203A4-9DD4-4053-A630-F31A12BE2AA9}.Debug|Win32.Build.0 = Debug|Win32
 		{19C203A4-9DD4-4053-A630-F31A12BE2AA9}.Release|Win32.ActiveCfg = Release|Win32
 		{19C203A4-9DD4-4053-A630-F31A12BE2AA9}.Release|Win32.Build.0 = Release|Win32
+		{E59849F7-9F44-4C52-B254-05EE5FA10873}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E59849F7-9F44-4C52-B254-05EE5FA10873}.Debug|Win32.Build.0 = Debug|Win32
+		{E59849F7-9F44-4C52-B254-05EE5FA10873}.Release|Win32.ActiveCfg = Release|Win32
+		{E59849F7-9F44-4C52-B254-05EE5FA10873}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
