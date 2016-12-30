@@ -9,7 +9,7 @@ private:
     Uncopyable& operator=(const Uncopyable&);
 };
 
-class Test : Uncopyable
+class Test : public Uncopyable
 {
 
 };
