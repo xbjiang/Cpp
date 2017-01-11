@@ -45,7 +45,9 @@ void swap(Counter& a, Counter& b)
 {
   MutexLockGuard aLock(a.mutex_);
   MutexLockGuard bLock(b.mutex_);
+  int64_t value = a.value_;
   a.value_ = b.value_;
+  b.value_ = value;
 }
 
 int main(int argc, char* argv[])
