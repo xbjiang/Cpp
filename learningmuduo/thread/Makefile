@@ -5,7 +5,8 @@ CXXFLAGS+=-I$(wildcard ~)/build/release-install/include/
 LDFLAGS=-L$(wildcard ~)/build/release-install/lib/
 
 TESTS= Counter \
-       Observer
+       Observer \
+       Factory
 
 all: $(TESTS)
 
@@ -17,6 +18,9 @@ Counter: LDFLAGS += -lmuduo_base -lpthread
 
 Observer: Observer.cc
 Observer: CXXFLAGS += --std=c++0x
+
+Factory: Factory.cc
+Factory: LDFLAGS += -lmuduo_base -lpthread
 
 clean:
 	rm -f $(TESTS)
