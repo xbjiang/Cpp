@@ -1,8 +1,8 @@
 CXXFLAGS= -g -Wall -rdynamic -march=native
 CXXFLAGS+=-O2
-CXXFLAGS+=-I/home/jiangxiaobo/build/release-install/include/
+CXXFLAGS+=-I$(wildcard ~)/build/release-install/include/
 
-LDFLAGS=-L/home/jiangxiaobo/build/release-install/lib/
+LDFLAGS=-L$(wildcard ~)/build/release-install/lib/
 
 Counter: Counter.cc
 	g++ $(CXXFLAGS) -o $@ $^ $(LDFLAGS) -lmuduo_base -lpthread
