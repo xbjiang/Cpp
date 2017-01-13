@@ -6,7 +6,8 @@ LDFLAGS=-L$(wildcard ~)/build/release-install/lib/
 
 TESTS= Counter \
        Observer \
-       Factory
+       Factory \
+       SelfDeadLock
 
 all: $(TESTS)
 
@@ -21,6 +22,9 @@ Observer: CXXFLAGS += --std=c++0x
 
 Factory: Factory.cc
 Factory: LDFLAGS += -lmuduo_base -lpthread
+
+SelfDeadLock: SelfDeadLock.cc
+SelfDeadLock: LDFLAGS += -lmuduo_base -lpthread
 
 clean:
 	rm -f $(TESTS)

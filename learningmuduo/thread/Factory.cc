@@ -156,7 +156,7 @@ class StockFactory : boost::noncopyable,
       muduo::MutexLockGuard lock(mutex_);
       boost::weak_ptr<Stock>& wkStock = stocks_[key];
       pStock = wkStock.lock();
-      if (pStock)
+      if (!pStock)
       {
         pStock.reset(new Stock(key), boost::bind(&StockFactory::weakDeleteCallback, 
                                                  boost::weak_ptr<StockFactory>(shared_from_this()),
@@ -173,7 +173,7 @@ class StockFactory : boost::noncopyable,
     static void weakDeleteCallback(const boost::weak_ptr<StockFactory>& wkFactory, 
                                    Stock* stock)
     {
-      printf("deleteStock[%p]", stock);
+      printf("deleteStock[%p]\n", stock);
       boost::shared_ptr<StockFactory> factory(wkFactory.lock());
       if (factory)
       {
@@ -195,6 +195,27 @@ class StockFactory : boost::noncopyable,
       }
     }
 };
+
+void testShortFactory()
+{
+  boost::shared_ptr<Stock> stock;
+  {
+    boost::shared_ptr<StockFactory> factory(new StockFactory);
+    stock = factory->get("NYSE:IBM");
+    boost::shared_ptr<Stock> stock2 = factory->get("NYSE:IBM");
+    assert(stock == stock2);
+  }
+}
+
+void testLongFactory()
+{
+  boost::shared_ptr<StockFactory> factory(new StockFactory);
+  {
+    boost::shared_ptr<Stock> stock = factory->get("NYSE:IBM");
+    boost::shared_ptr<Stock> stock2 = factory->get("NYSE:IBM");
+    assert(stock == stock2);
+  }
+}
 int main()
 {
  /* version1::StockFactory sf1;
@@ -209,7 +230,7 @@ int main()
   }
   printf("checkpoint\n");
   boost::shared_ptr<Stock> s2 = sf2.get("Stock2");
-  printf("checkpoint2\n");*/
+  printf("checkpoint2\n");
   version3::StockFactory sf3;
   {
     boost::shared_ptr<Stock> s3 = sf3.get("Stock3");
@@ -223,5 +244,8 @@ int main()
   boost::shared_ptr<StockFactory> sf5(new StockFactory);
   {
     boost::shared_ptr<Stock> s5 = sf5->get("Stock5");
-  }
+  }*/
+
+  testLongFactory();  
+  testShortFactory();
 }
