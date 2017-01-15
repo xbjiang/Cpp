@@ -7,7 +7,9 @@ LDFLAGS=-L$(wildcard ~)/build/release-install/lib/
 TESTS= Counter \
        Observer \
        Factory \
-       SelfDeadLock
+       SelfDeadLock \
+       CopyOnWrite_test \
+       MutualDeadLock
 
 all: $(TESTS)
 
@@ -25,6 +27,12 @@ Factory: LDFLAGS += -lmuduo_base -lpthread
 
 SelfDeadLock: SelfDeadLock.cc
 SelfDeadLock: LDFLAGS += -lmuduo_base -lpthread
+
+CopyOnWrite_test: CopyOnWrite_test.cc
+CopyOnWrite_test: LDFLAGS += -lmuduo_base -lpthread
+
+MutualDeadLock: MutualDeadLock.cc
+MutualDeadLock: LDFLAGS += -lmuduo_base -lpthread
 
 clean:
 	rm -f $(TESTS)
