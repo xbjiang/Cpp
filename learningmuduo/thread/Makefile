@@ -10,7 +10,8 @@ TESTS= Counter \
        SelfDeadLock \
        CopyOnWrite_test \
        MutualDeadLock  \
-       RequestInventory_test
+       RequestInventory_test \
+       RequestInventory_test2
 
 all: $(TESTS)
 
@@ -37,6 +38,9 @@ MutualDeadLock: LDFLAGS += -lmuduo_base -lpthread
 
 RequestInventory_test: RequestInventory_test.cc
 RequestInventory_test: LDFLAGS += -lmuduo_base -lpthread
+
+RequestInventory_test2: RequestInventory_test2.cc
+RequestInventory_test2: LDFLAGS += -lmuduo_base -lpthread
 
 clean:
 	rm -f $(TESTS)
