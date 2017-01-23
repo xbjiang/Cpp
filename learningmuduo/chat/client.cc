@@ -6,6 +6,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/bind.hpp>
 #include <stdio.h>
+#include <iostream>
 
 class ChatClient : boost::noncopyable
 {
