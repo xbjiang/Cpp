@@ -32,6 +32,10 @@ bool PubSubClient::connected() const
   return conn_ && conn_->connected(); 
 }
 
+void PubSubClient::setConnectionCallback(const ConnectionCallback& cb)
+{
+  connectionCallback_ = cb;
+}
 bool PubSubClient::subscribe(const string& topic,
                              const SubscribeCallback& cb)
 {
