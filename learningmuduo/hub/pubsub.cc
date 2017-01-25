@@ -66,6 +66,10 @@ void PubSubClient::onConnection(const muduo::net::TcpConnectionPtr& conn)
   {
     conn_.reset();
   }
+  if (connectionCallback_)
+  {
+    connectionCallback_(this);
+  }
 }
 
 void PubSubClient::onMessage(const muduo::net::TcpConnectionPtr& conn,
