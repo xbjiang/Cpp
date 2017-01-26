@@ -1,8 +1,11 @@
 #include "pubsub.h"
 #include <muduo/net/InetAddress.h>
 #include <muduo/net/EventLoop.h>
+#include <muduo/net/EventLoopThread.h>
+
 #include <muduo/base/ProcessInfo.h>
 
+#include <iostream>
 #include <stdio.h>
 
 using namespace muduo;
@@ -40,11 +43,30 @@ int main(int argc, char* argv[])
       g_content = argv[3];
       string name = ProcessInfo::username() + "@" + ProcessInfo::hostname();
       name += ":" + ProcessInfo::pidString();
+
       if (g_content == "-")
       {
+        EventLoopThread loopThread;
+        g_loop = loopThread.startLoop();
+        PubSubClient client(g_loop, InetAddress(hostip, port), name);
+        client.start();
+    
+        string line;
+        while (getline(std::cin, line))
+        {
+          client.publish(g_topic, line);
+        }
+        client.stop();
+        Current::sleepUsec(1000*1000);
       }
       else 
       {
+        EventLoop loop;
+        g_loop = &loop;
+        PubSubClient client(g_loop, InetAddress(hostip, port), name);
+        client.setConnectionCallback(connection);
+        client.start();
+        loop.loop();
       }
     }
     else 
