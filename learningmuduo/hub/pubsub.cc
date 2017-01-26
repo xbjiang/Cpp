@@ -1,3 +1,4 @@
+#include "codec.h"
 #include "pubsub.h"
 #include <muduo/net/InetAddress.h>
 #include <muduo/net/Buffer.h>
@@ -97,7 +98,7 @@ void PubSubClient::onMessage(const muduo::net::TcpConnectionPtr& conn,
   }
 }
 
-void PubSubClient::send(const string& message)
+bool PubSubClient::send(const string& message)
 {
   bool succeed = false;
   if (conn_ && conn_->connected())

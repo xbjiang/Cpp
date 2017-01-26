@@ -1,5 +1,9 @@
+#include "codec.h"
 #include <muduo/net/InetAddress.h>
+#include <muduo/net/TcpServer.h>
+#include <muduo/net/EventLoop.h>
 #include <muduo/base/Logging.h>
+
 
 #include <boost/bind.hpp>
 
@@ -10,7 +14,7 @@
 using namespace muduo;
 using namespace muduo::net;
  
-namespace pubhub
+namespace pubsub
 {
 
 typedef std::set<string> ConnectionSubscription;
@@ -19,7 +23,7 @@ class Topic
 {
   public: 
     Topic(const string& topic)
-      : topic_(topic);
+      : topic_(topic)
     {
     }
 
@@ -40,7 +44,7 @@ class Topic
     void publish(const string& content, Timestamp time)
     {
       content_ = content;
-      lastPubTime = time;
+      lastPubTime_ = time;
       string message = makeMessage();
       for (std::set<TcpConnectionPtr>::iterator it = audiences_.begin();
            it != audiences_.end();
@@ -73,7 +77,7 @@ class PubSubServer : boost::noncopyable
           boost::bind(&PubSubServer::onConnection, this, _1));
       server_.setMessageCallback(
           boost::bind(&PubSubServer::onMessage, this, _1, _2, _3));
-      loop_.runEvery(1.0, &PubSubServer::timePublish, this);
+      loop_->runEvery(1.0, boost::bind(&PubSubServer::timePublish, this));
     }
 
     void start()
@@ -91,10 +95,10 @@ class PubSubServer : boost::noncopyable
       }
       else 
       {
-        ConnectionSubscription& connSub 
-            = boost::any_cast<ConnectionSubscription&>(conn->getContext());
-        for (ConnnectionSubscription::iterator it = connSub.begin();
-             it != connSub.end())
+        const ConnectionSubscription& connSub 
+            = boost::any_cast<const ConnectionSubscription&>(conn->getContext());
+        for (ConnectionSubscription::iterator it = connSub.begin();
+             it != connSub.end();)
         {
           doUnsubscribe(conn, *it++);
         }
@@ -139,6 +143,12 @@ class PubSubServer : boost::noncopyable
         }
       }
     }
+    
+    void timePublish()
+    {
+      Timestamp now = Timestamp::now();
+      doPublish("internal", "utc_time", now.toFormattedString(), now); 
+    }
 
     void doPublish(const string& source,
                    const string& topic,
@@ -152,7 +162,7 @@ class PubSubServer : boost::noncopyable
                      const string& topic)
     {
       ConnectionSubscription* connSub = 
-          boost::any_cast<ConnectionSubscription*>(conn->getMutableContext());
+          boost::any_cast<ConnectionSubscription>(conn->getMutableContext());
       connSub->insert(topic);
       getTopic(topic).add(conn);
     }
@@ -162,8 +172,8 @@ class PubSubServer : boost::noncopyable
     {
       LOG_INFO << conn->name() << " unsubscribes " << topic;
       getTopic(topic).remove(conn);
-      ConnnectionSubscription* connSub = 
-          boost::any_cast<ConnectionSubscription*>(conn->getMutableContext());
+      ConnectionSubscription* connSub = 
+          boost::any_cast<ConnectionSubscription>(conn->getMutableContext());
       connSub->erase(topic);
     }
     
@@ -190,7 +200,7 @@ int main(int argc, char* argv[])
     EventLoop loop;
     uint16_t port = static_cast<uint16_t>(atoi(argv[1]));
     InetAddress listenAddr(port);
-    PubSubServer server(&loop, port);
+    pubsub::PubSubServer server(&loop, listenAddr);
     server.start();
     loop.loop();
   }

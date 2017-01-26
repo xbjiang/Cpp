@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
           client.publish(g_topic, line);
         }
         client.stop();
-        Current::sleepUsec(1000*1000);
+        CurrentThread::sleepUsec(1000*1000);
       }
       else 
       {

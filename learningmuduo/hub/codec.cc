@@ -1,10 +1,8 @@
 #include "codec.h"
-#include <muduo/net/Buffer.h>
-#include <algorithm>
 
-using namespace pubhub;
+using namespace pubsub;
 
-ParseResult parseMessage(muduo::net::Buffer* buf,
+ParseResult pubsub::parseMessage(muduo::net::Buffer* buf,
                          string* cmd,
                          string* topic,
                          string* content)
@@ -25,7 +23,7 @@ ParseResult parseMessage(muduo::net::Buffer* buf,
         if (crlf)
         {
           content->assign(start, crlf);
-          buf->retrieveUtil(crlf+2);
+          buf->retrieveUntil(crlf+2);
           result = kSuccess;
         } 
         else 
@@ -35,7 +33,7 @@ ParseResult parseMessage(muduo::net::Buffer* buf,
       }
       else 
       {
-        buf->retrieveUtil(crlf+2);
+        buf->retrieveUntil(crlf+2);
         result = kSuccess;
       } 
     }
