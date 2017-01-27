@@ -3,6 +3,8 @@
 #include <muduo/net/InetAddress.h>
 #include <muduo/net/Buffer.h>
 
+#include <muduo/base/Logging.h>
+
 #include <boost/bind.hpp>
 
 using namespace pubsub;
@@ -77,7 +79,7 @@ void PubSubClient::onMessage(const muduo::net::TcpConnectionPtr& conn,
                muduo::net::Buffer* buf,
                Timestamp receiveTime)
 {
-  ParseResult result = kError;
+  ParseResult result = kSuccess;
   while (result == kSuccess)
   {
     string cmd;

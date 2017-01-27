@@ -155,7 +155,7 @@ class PubSubServer : boost::noncopyable
                    const string& content,
                    Timestamp time)
     {
-      getTopic(topic).publish(content, time); 
+      getTopic(topic).publish(content, time);
     }
 
     void doSubscribe(const TcpConnectionPtr& conn,

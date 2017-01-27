@@ -1,6 +1,7 @@
 #include "pubsub.h"
 #include <muduo/net/EventLoop.h>
 #include <muduo/base/ProcessInfo.h>
+#include <muduo/base/Logging.h>
 
 #include <vector>
 
